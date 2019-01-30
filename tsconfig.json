@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",                         
+    "pretty":true,             
+    "outDir": "./build",                        
+    "strict": true,                          
+  }, 
+  "files": ["main.ts"]
+}
