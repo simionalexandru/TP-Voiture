@@ -31,7 +31,9 @@ for (var i = 0; i < players.length; i++) {
         vehiculesEnCourse[i] = new moto_1.Moto(players[i].player_name, false, false);
     }
 }
-console.log("Imprima asta", testMoto.nivelFuel);
+//let johnVehicle = players.filter(players => player_name = "John" )
+var Gigi = new voiture_1.Voiture("toyota", true, true);
+Gigi.rouler();
 // function randomVehicle():string{
 //     let randomNumber = Math.floor(Math.random() * 3) + 1;
 //     if(randomNumber == 1){

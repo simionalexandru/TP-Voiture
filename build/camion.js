@@ -24,7 +24,7 @@ var Camion = /** @class */ (function (_super) {
         _this._nivelFuel = 200;
         _this._topSpeed = 150;
         _this._consumtion = 20;
-        _this._distance = 1000;
+        _this._distanceParcurs = 0;
         _this._type = "camion";
         _this._klaxon = "BEM BEM sais the truck!!!!";
         return _this;

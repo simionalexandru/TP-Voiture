@@ -47,8 +47,11 @@ for(let i=0; i<players.length; i++){
     }
 }
 
-console.log("Imprima asta" , testMoto.nivelFuel);
+//let johnVehicle = players.filter(players => player_name = "John" )
 
+let Gigi = new Voiture("toyota", true, true);
+
+Gigi.rouler();
 
 
 
