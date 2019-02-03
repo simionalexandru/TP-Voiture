@@ -106,28 +106,33 @@ var Vehicule = /** @class */ (function () {
         }
     };
     Vehicule.prototype.consummingMethod = function () {
-        if (this.currentSpeed > 0 && this.currentSpeed < 50) {
+        if (this.currentSpeed > 0 && this.currentSpeed <= 50) {
             return this._consumtion = this._consumtion / 2;
         }
-        else if (this.currentSpeed > 50 && this.currentSpeed < 100) {
+        else if (this.currentSpeed > 50 && this.currentSpeed <= 100) {
             return this._consumtion = this._consumtion / 1.5;
         }
         else {
-            return this._consumtion = this._consumtion;
+            return this._consumtion;
         }
     };
     //This method will drive the car until we are out of gas.
     //The method will influence the distance traveled and the consumtion 
     Vehicule.prototype.rouler = function () {
         var _this = this;
-        var timer = 20;
-        timer = setInterval(function () {
-            _this._currentSpeed = _this._currentSpeed + _this.accelerate();
-            _this._consumtion = _this.consummingMethod();
-            _this._nivelFuel = _this.currentFuelLevelMethod();
-            _this._distanceParcurs = _this.distanceTraveledPerSecond();
+        this.timer = setInterval((function () {
+            if (_this._nivelFuel < 0) {
+                clearInterval(_this.timer);
+                console.log("We are out of fuel");
+            }
+            else {
+                _this._nivelFuel = _this.currentFuelLevelMethod();
+                _this._currentSpeed = _this._currentSpeed + _this.accelerate();
+                _this._consumtion = _this.consummingMethod();
+            }
+            _this._distanceParcurs = _this._distanceParcurs + _this.distanceTraveledPerSecond();
             _this.showInfoMethod();
-        }, 1000);
+        }), 1000);
     };
     Vehicule.prototype.currentFuelLevelMethod = function () {
         var consumtionPerSecond = this._consumtion / 3600;
@@ -149,7 +154,7 @@ var Vehicule = /** @class */ (function () {
         console.log("Distance traveled: " + this._distanceParcurs);
         console.log("Current speed: " + this._currentSpeed);
         console.log("Fuel level: " + this._nivelFuel);
-        console.log("Current consumtion: " + this._consumtion);
+        console.log("Current consumtion: " + this.consummingMethod());
     };
     return Vehicule;
 }());

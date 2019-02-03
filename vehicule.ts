@@ -8,8 +8,10 @@ export class Vehicule{
     protected _consumtion:number=0;
     protected _distanceParcurs:number=0;
     protected _type:string="";
-    protected _isRented = false;
+    protected _isRented:boolean = false;
     protected _klaxon:string = "";
+    protected timer:any;
+    protected refil:any;
 
     constructor(rent:boolean){
         this._isRented = rent;
@@ -90,32 +92,36 @@ export class Vehicule{
     }
 
     consummingMethod(){
-       if(this.currentSpeed > 0 && this.currentSpeed < 50){
-           return this._consumtion = this._consumtion/2 
-       } else if(this.currentSpeed > 50 && this.currentSpeed < 100) {
-        return this._consumtion = this._consumtion/1.5
+       if(this.currentSpeed > 0 && this.currentSpeed <= 50){
+            return this._consumtion = this._consumtion/2 
+       } else if(this.currentSpeed > 50 && this.currentSpeed <= 100) {
+            return this._consumtion = this._consumtion/1.5
        }else{
-           return this._consumtion = this._consumtion;
+           return this._consumtion;
        }
     }
 
     //This method will drive the car until we are out of gas.
     //The method will influence the distance traveled and the consumtion 
-    rouler()
-    {
- 
-        let timer:number = 20;
-        
-        timer= setInterval(()=>
-        {
-            this._currentSpeed = this._currentSpeed + this.accelerate();
-            this._consumtion = this.consummingMethod();
-            this._nivelFuel = this.currentFuelLevelMethod();
-            this._distanceParcurs = this.distanceTraveledPerSecond();
+    rouler(){
+
+            this.timer= setInterval((()=>{
+            
+            if(this._nivelFuel<0){
+                clearInterval(this.timer);
+                console.log("We are out of fuel");
+                
+            }else{
+                this._nivelFuel = this.currentFuelLevelMethod();
+                this._currentSpeed = this._currentSpeed + this.accelerate();
+                this._consumtion = this.consummingMethod();
+            }
+            
+            this._distanceParcurs = this._distanceParcurs + this.distanceTraveledPerSecond();
             this.showInfoMethod();
 
-        },1000);         
-            
+            }), 1000);         
+             
             
     }
 
@@ -126,7 +132,7 @@ export class Vehicule{
     }
 
     distanceTraveledPerSecond(){
-        let distanceTraveledPerSecond = this._currentSpeed/3600;
+        let distanceTraveledPerSecond =   this._currentSpeed/3600;
         return distanceTraveledPerSecond;
     }
 
@@ -142,7 +148,7 @@ export class Vehicule{
         console.log("Distance traveled: " + this._distanceParcurs);
         console.log("Current speed: " + this._currentSpeed);
         console.log("Fuel level: " + this._nivelFuel);
-        console.log("Current consumtion: " + this._consumtion);
+        console.log("Current consumtion: " + this.consummingMethod());
     }
 
 

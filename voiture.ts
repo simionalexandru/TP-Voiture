@@ -10,7 +10,7 @@ export class Voiture extends Vehicule{
 
         this._name = nameCar;
         this._fuelCapacity = 50;
-        this._nivelFuel = 50;
+        this._nivelFuel = 0.5;
         this._topSpeed = 200;
         this._consumtion = 10;
         this._distanceParcurs = 0;
